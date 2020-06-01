@@ -1,0 +1,20 @@
+{% extends 'shop/main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container mt-5">
+	<div class="auth-wrapper auth-inner align-items-center">
+      <form method="post">
+        {% csrf_token %}
+        <h3>Login</h3> 
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-form btn-block">Login</button>
+        <br>
+        <p>Don't have an account yet? <a href="{% url 'signup' %}">signup</a> </p>
+      </form>
+  </div>
+</div>
+
+
+{% endblock content %}

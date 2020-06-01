@@ -1,0 +1,60 @@
+{% extends 'shop/main.html' %}
+{% load static %}
+{% block content %}
+
+	<div id="list-wrapper">
+
+	</div>
+
+	{% comment %} <div id="data-row-${i}" class="">
+		<div class="row mb-5">
+			<div class="col-lg-4">
+				<img class="thumbnail">
+				<div class="box-element product">
+					<h6><strong></strong></h6>
+					<hr>
+					<button data-product="" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>				
+					<h4 style="display: inline-block; float: right">
+					<strong> Kr.</strong>
+					<h4>
+				</div>
+			</div>
+		</div>
+	</div> {% endcomment %}
+
+<script type="text/javascript">
+
+productList()
+
+function productList(){
+	let wrapper = document.getElementById('list-wrapper')
+
+	fetch('http://127.0.0.1:8000/product-list/')
+		.then((resp) => resp.json())
+		.then(function(data){
+				console.log('Data:', data)
+				
+				let product = data
+				for (let i in product){
+					let item = `
+						<div class="row mb-5">
+							<div class="col-lg-4">
+								<img class="thumbnail" src=${product[i].image}>
+								<div class="box-element product">
+									<h6><strong>${product[i].name}</strong></h6>
+									<hr>
+									<button data-product=${product[i].id} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>				
+									<h4 style="display: inline-block; float: right"><strong>${product[i].price} Kr.</strong></h4>
+								</div>
+							</div>
+						</div>
+					`
+					wrapper.innerHTML += item
+	
+				}
+		
+})
+}
+</script>
+
+{% endblock content %}
